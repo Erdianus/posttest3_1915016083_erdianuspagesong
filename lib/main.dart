@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'PESAN'),
     );
   }
 }
@@ -31,46 +31,80 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-    print(_counter);
-  }
+  final controllerNama = TextEditingController();
+  final controllerHaircut = TextEditingController();
+  final controllerHarga = TextEditingController();
+  String nama = "", haircut = "", harga = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {},
+        ),
+        title: Text('Pesan'),
         backgroundColor: Color.fromARGB(255, 33, 33, 33),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Nama Pemesan",
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: controllerNama,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Nama Pemesan",
+                ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: controllerHaircut,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Jenis Haircut",
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: controllerHarga,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Harga",
+                ),
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    nama = controllerNama.value.text;
+                    haircut = controllerHaircut.value.text;
+                    harga = controllerHarga.value.text;
+                  });
+                },
+                child: Text('Pesan'),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('PESANAN ANDA'),
+            ),
+            Text('Nama : $nama'),
+            Text('Haircut : $haircut'),
+            Text('harga : $harga'),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
